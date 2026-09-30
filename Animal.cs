@@ -8,15 +8,20 @@ public class Animal
     private string _brid;
     private float _massa;
 
+    private bool _posibilityToGoOut;
+
     public string Name { get { return _name; } }
     public string Brid { get { return _brid; } }
     public float Massa { get { return _massa; } }
 
-    public Animal(string name, string brid, float massa)
+    public bool PosibilityToGoOut { get {return _posibilityToGoOut; }}
+
+    public Animal(string name, string brid, bool posibilityToGoOut , float massa)
     {
         _name = name;
         _brid = brid;
         _massa = massa;
+        _posibilityToGoOut = posibilityToGoOut;
     }
 
     private bool _isHungry = true;
@@ -59,6 +64,13 @@ public class Animal
         }
     }
 
+    public void FeetAnimal()
+    {
+        IsHungry = false;
+        System.Console.WriteLine($"{Name} Стал Сыт");
+
+    }
+
     public void CheckForFullness()
     {
         if (IsHungry == false)
@@ -67,13 +79,16 @@ public class Animal
         }
         else
         {
-            IsHungry = false;
-            System.Console.WriteLine($"{Name} Стал Сыт");
+            FeetAnimal();
         }
     }
     public void Breathe()
     {
         System.Console.WriteLine("Дишу");
+    }
+    public void Walking()
+    {
+        System.Console.WriteLine("Гуляет");
     }
 
 }

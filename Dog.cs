@@ -8,7 +8,7 @@ public class Dog : Animal
 
     public int Speed{get{return _speed;}}
 
-    public Dog(string name, string brid, float massa, int speed): base(name,brid,massa)
+    public Dog(string name, string brid, float massa, bool posibilityToGoOut , int speed): base(name,brid,posibilityToGoOut ,massa)
     {
         _speed=speed;
     }

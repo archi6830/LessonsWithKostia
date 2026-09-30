@@ -8,7 +8,7 @@ public class Bird : Animal
     public bool Speed { get { return _isFlying; } }
 
 
-    public Bird(string name, string brid, float massa, bool isflying) : base(name, brid, massa)
+    public Bird(string name, string brid, float massa, bool posibilityToGoOut , bool isflying) : base(name, brid, posibilityToGoOut, massa)
     {
         _isFlying = isflying;
     }

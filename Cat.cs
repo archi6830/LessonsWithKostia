@@ -28,7 +28,7 @@ public class Cat : Animal
     }
 
 
-    public Cat(string name, string brid, float massa, bool iswild) : base(name, brid, massa)
+    public Cat(string name, string brid, float massa, bool posibilityToGoOut , bool iswild) : base(name, brid, posibilityToGoOut ,massa)
     {
         _isWild = iswild;
         IsHungry = false;

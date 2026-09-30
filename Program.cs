@@ -10,56 +10,79 @@ class Program
     public static void Main(string[] arg)
     {
 
-        Fish fish = new Fish("Somik", "Doberman", 3f);
-        FishService(fish);
-        // Animal[] allAnimals = {
-
-        // new Dog("Tuzic", "Doberman", 3, 100),
-        // new Cat("Sonia", "Veslouha", 1, true),
-        // new Bird("Archi", "Royal", 0.6f, false)
-        // };
-        // // Animal[] animals =
-        // // {
-        // //     Tuzic,
-        // //     Sonia,
-        // //     Archi,
-        // // };
-        // // 1. Dayly check
-        // // 1- всех голодных накормить   1.1 просигналить 2- кого можно выпустить 2.2 просигналить 3 выдать звук 
-        // System.Console.WriteLine("Выбери пункт из меню");
-        // System.Console.WriteLine("1. Dayly Check");
-        // System.Console.WriteLine("2. Open Menu With all animals");
-        // System.Console.WriteLine("3. Feet each");
-        // System.Console.WriteLine("4. Make sound");
-        // System.Console.WriteLine("5. Let them go");
-
-        // int choise = int.Parse(System.Console.ReadLine());
-
-        // switch (choise)
+        Animal[] allAnimals = {
+        new Fish("Somik", "Doberman",3f, false),
+        new Dog("Tuzic", "Doberman", 3, true , 100),
+        new Cat("Sonia", "Veslouha", 1, true, true),
+        new Bird("Archi", "Royal", 0.6f, true , false)
+        };
+        // Animal[] animals =
         // {
-        //     case 1:
-        //         DailyCheck(allAnimals);
-        //         break;
-        //     case 2:
-        //         OpenSecondMenu(allAnimals);
-        //         break;
-        //     case 3:
-        //         Animal.SearchForAnimal(allAnimals);
-        //         SecondMenuForFeet(allAnimals);
-        //         break;
-        //     case 4:
-        //         Animal.SearchForAnimal(allAnimals);
-        //         SecondMenuForSound(allAnimals);
-        //         break;
-        //     case 5:
-        //         Animal.SearchForAnimal(allAnimals);
-        //         SecondMenuForWalk(allAnimals);
-        //         break;
-        //     case 0:
-        //         break;
-        // }
+        //     Tuzic,
+        //     Sonia,
+        //     Archi,
+        // };
+        // 1. Dayly check
+        // 1- всех голодных накормить   1.1 просигналить 2- кого можно выпустить 2.2 просигналить 3 выдать звук 
+
+        while (true)
+        {
+            MakeMainMenu();
+
+            int choise = int.Parse(System.Console.ReadLine());
+
+            // Animal animalForSelect = SelectAnimal(allAnimals);
+
+            switch (choise)
+            {
+                case 1:
+                    DailyCheck(allAnimals);
+                    //MakeMainMenu();
+                    break;
+                case 2:
+                    OpenSecondMenu(allAnimals);
+                    //MakeMainMenu();
+                    break;
+                case 3:
+                    Animal.SearchForAnimal(allAnimals);
+                    SecondMenuForFeet(SelectAnimal(allAnimals));
+                    //MakeMainMenu();
+                    break;
+                case 4:
+                    Animal.SearchForAnimal(allAnimals);
+                    SecondMenuForSound(SelectAnimal(allAnimals));
+                    //MakeMainMenu();
+                    break;
+                case 5:
+                    Animal.SearchForAnimal(allAnimals);
+                    SecondMenuForWalk(SelectAnimal(allAnimals));
+                    //MakeMainMenu();
+                    break;
+                case 0:
+                    break;
+                default:
+                    break;
+            }
+            if (choise == 0)
+            {
+                break;
+            }
+
+        }
     }
-    public static int numOfWhichAnimalFeet = int.Parse(System.Console.ReadLine());
+    public static void MakeMainMenu()
+    {
+        System.Console.WriteLine();
+        System.Console.WriteLine("Выбери пункт из меню");
+        System.Console.WriteLine("1. Dayly Check");
+        System.Console.WriteLine("2. Open Menu With all animals");
+        System.Console.WriteLine("3. Feet each");
+        System.Console.WriteLine("4. Make sound");
+        System.Console.WriteLine("5. Let them go");
+        System.Console.WriteLine("0. Exit");
+
+
+    }
 
 
     public static void DailyCheck(Animal[] animals)
@@ -129,39 +152,57 @@ class Program
             // Скрытие методов и свойств
             // Различие переопределения и скрытия методов
         }
+
     }
 
-    public static void SecondMenuForFeet(Animal[] animals)
+    // public static void CreateNumber(int number)
+    // {
+    // int numOfWhichAnimalFeet = int.Parse(Console.ReadLine());
+
+    // numOfWhichAnimalFeet = number;
+
+    // }
+
+    public static Animal SelectAnimal(Animal[] animals)
     {
-        animals[numOfWhichAnimalFeet - 1].CheckForFullness();
+
+        int numberItsAChoice = int.Parse(Console.ReadLine());
+
+        return animals[numberItsAChoice - 1];
+
     }
-    public static void SecondMenuForSound(Animal[] animals)
+    public static void SecondMenuForFeet(Animal animal)
     {
-        animals[numOfWhichAnimalFeet - 1].MakeSound();
+        animal.CheckForFullness();
     }
-    public static void SecondMenuForWalk(Animal[] animals)
+    public static void SecondMenuForSound(Animal animal)
     {
-        if (animals[numOfWhichAnimalFeet - 1].IsHungry)
+        animal.MakeSound();
+    }
+    public static void SecondMenuForWalk(Animal animal)
+    {
+        if (animal.PosibilityToGoOut == true)
         {
-            System.Console.WriteLine("Сначала покорми");
-            System.Console.WriteLine();
-            System.Console.WriteLine("1 покормить");
-            System.Console.WriteLine("0 выйти");
-            int feetOrNo = int.Parse(System.Console.ReadLine());
-            switch (feetOrNo)
+            System.Console.WriteLine("Может выйти только если сытое и не дикое");
+            animal.CanGoOut();
+            if (animal.IsHungry)
             {
-                case 1:
-                    animals[numOfWhichAnimalFeet - 1].CanGoOut();
-                    break;
-                case 0:
-                    break;
-                default:
-                    break;
+                System.Console.WriteLine();
+                System.Console.WriteLine("1 покормить");
+                System.Console.WriteLine("0 выйти");
+                int feetOrNo = int.Parse(System.Console.ReadLine());
+                switch (feetOrNo)
+                {
+                    case 1:
+                        animal.FeetAnimal();
+                        animal.Walking();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        break;
+                }
             }
-        }
-        else
-        {
-            animals[numOfWhichAnimalFeet - 1].CanGoOut();
         }
     }
 
